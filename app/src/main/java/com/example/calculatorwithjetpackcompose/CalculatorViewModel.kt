@@ -57,7 +57,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterDecimal() {
-        if (!state.part1.contains(".") && state.part1.isNotBlank() && state.operation != null) {
+        if (!state.part1.contains(".") && state.part1.isNotBlank() && state.operation == null) {
             state = state.copy(
                 part1 = state.part1 + "."
             )
@@ -107,10 +107,21 @@ class CalculatorViewModel : ViewModel() {
 
                 null -> return
             }
+
+            val formattedResult = if (part1.isInt() && part2.isInt()) {
+                result.toInt().toString().take(15)
+            } else {
+                String.format("%.3f", result)
+            }
             state = state.copy(
-                part1 = result.toString().take(15)
+                part1 = formattedResult,
+                part2 = "", operation = null
             )
         }
+    }
+
+    private fun Double.isInt(): Boolean {
+        return this % 1 == 0.0
     }
 
 

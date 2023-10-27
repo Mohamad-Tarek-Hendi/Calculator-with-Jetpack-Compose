@@ -8,5 +8,4 @@ sealed class CalculatorEvent {
     object Delete : CalculatorEvent()
     object Decimal : CalculatorEvent()
     object Calculator : CalculatorEvent()
-
 }
